@@ -16,46 +16,56 @@
 </ul>
 
 ## Venatajas
-### Rendimiento serverless con escalabilidad ilimitada
+<ul>
+<li> <h3> Rendimiento serverless con escalabilidad ilimitada</h3></li>
 
+<ul>
+<li>Tecnologia serverless y escalabilidad desde 0</li>
+<li>Transacciones ACID</li>
+<li>Replicacion activa con tabals globales</li>
+<li>DynamoDB Stream como parte de una aquitectura basada en eventos</li>
+<li>Indices secundarios</li>
+</ul>
+
+
+<li><h3> Seguridad y fiabilidad</h3></li>
+<ul>
+<li>Control de acceso detallado</li>
+<li>Cifrado en reposo</li>
+<li>Recuperacion a un momento dado</li>
+<li>Copia de seguridad y restauracion bajo demananda</li>
+<li>Conectividad de la red privada(VPC)</li>
+</ul>
+
+<li><h3> Rentabilidad</h3></li>
+<ul>
+<li>Modo bajo demanda</li>
+<li>Clase de tabal acceso estandar no frecunte (Standar-1A)</li>
+<li>Escalamiuento automatico para mejorar la rentabilidad</li>
+<li>Capacidad reservada</li>
+
+</ul>
+
+<li><h3>Integraciones con los servicios de AWS</h3></li>
+<ul>
+<li>Latencia de microsegundos con el aceledador de Amazon DynamoDB</li>
+<li>Importacion o exportacion masiva desde Amazon Simple Storage Servide(S3)</li>
+<li>Aplicaciones de streaming con kinesis data streams para amazon DB</li>
+<li>Seguimiento de cambio con desencadenadores</li>
+<li>Supervicion y diagnostico del rendimiento del sistema con Amazon CloudWatch</li>
+</ul>
+</ul>
+
+<h3> Funcionamiento</h3>
+<hr>
 <ul>
 <li></li>
 <li></li>
 <li></li>
 </ul>
 
-
-### Seguridad y fiabilidad
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-
-### Rentabilidad
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-
-### Integraciones con los servicios de AWS
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-
-## Funcionamiento
-
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-
-## Casos de uso
-
+<h3> Casos de uso</h3>
+<hr>
 <ul>
 <li></li>
 <li></li>
