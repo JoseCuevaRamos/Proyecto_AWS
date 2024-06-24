@@ -45,3 +45,19 @@
 <li></li>
 <li></li>
 </ul>
+
+## Funcionamiento
+
+<ul>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+
+## Casos de uso
+
+<ul>
+<li></li>
+<li></li>
+<li></li>
+</ul>
