@@ -58,16 +58,14 @@
 
 <h3> Funcionamiento</h3>
 <hr>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
+
+Es un serivicio completamente administrado de base de datos NosQL serverless(no tienes que administrar los servidores y solo se tiene que concentrar end esarrolla el codigo) con tiempos de respuesta de milisegundos de un solo digito a cualquier escala, lo que le permite desarrolllar y ejecutar aplicaciones modernas pagando solo por lo que utiliza
 
 <h3> Casos de uso</h3>
 <hr>
 <ul>
-<li></li>
-<li></li>
-<li></li>
+<li>Desarrollo de aplicaciones de software</li>
+<li>Creacion de alamcenes de metadatos de contenido multimedia</li>
+<li>Ofrecer experciencias de venta minorista sin incovenientes</li>
+<li>Escalar Plataformas de videojuegos</li>
 </ul>
