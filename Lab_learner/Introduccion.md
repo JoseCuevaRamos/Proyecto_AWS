@@ -5,19 +5,18 @@
 
 Para este ejercicio de familiarización, usremos AWS Academy Learner Lab [82339], iniciando el laboratorio, de manera que tengamos acceso a los servicios de AWS
 
-<p aling="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/4848bc44-c66e-4247-98dc-8c81dabc79d1"></p>
+<p align="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/4848bc44-c66e-4247-98dc-8c81dabc79d1"></p>
 
 
 ## Elegiremos el servicio de DynamoDB 
-<p aling="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/881b0774-4d2e-45a0-9a93-4dc08cf5024d"></p>
+<p align="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/881b0774-4d2e-45a0-9a93-4dc08cf5024d"></p>
 
 # Creamos una tabla nueva con un nombre y clave de partición en Número, manteniendo la configuración de la tabla en predeterminada sin añadir etiquetas de momento
-![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/5476f9f3-ffcf-421d-af4b-cbc06aab75be)
+<p align="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/5476f9f3-ffcf-421d-af4b-cbc06aab75be"></p>
 
 
 <p>Una vez tenemos la tabla creada, <img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/0dac26ec-44de-4be8-968b-dc098edb87fe" width="150"> podemos comenzar a añadir elementos</p>
-
-![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/dbc303b5-ba94-4826-8af9-23602e314d78)
+<p align="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/dbc303b5-ba94-4826-8af9-23602e314d78"></p>
 
 
 
@@ -26,16 +25,16 @@ teniendo cuidado del uso de mayúsculas, pues pueden representar variables disti
 
 Luego, para realizar búsquedas sencillas, haremos click en filtros y añadiremos los necesarios para encontra la información requerida
 
-![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/6fd97041-d62e-4d49-aee3-baaf544b9ead)
+
 
 Es así como obtenemos el resultado de la persona con identiciador 2 y Nombre "Ricardo"
-
+<p align="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/6fd97041-d62e-4d49-aee3-baaf544b9ead"></p>
 
 Podemos obtener, también, métricas de uso de nuestra tabla:
-![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/2d63eeaa-3a45-47d3-8618-f6dd41811c9e)
 
 
 
+<p align="center"><img src="https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/2d63eeaa-3a45-47d3-8618-f6dd41811c9e"></p>
 
 
 
@@ -59,4 +58,4 @@ Casos de uso de DynamoDB:
 
 
 
-## Aprendimos a crear una tabla de DynamoDB a través de la interfaz gráfica de AWS, pero también podemos hacerlo a base de código usando el Software Developer Kit de boto3 a través de un script creado por nosotros
+## Aprendimos a crear una tabla de DynamoDB, añadir elementos y realizar búsquedas a través de la interfaz gráfica de AWS, pero también podemos hacerlo a base de código usando el Software Developer Kit de **boto3** a través de un script creado por nosotros.
