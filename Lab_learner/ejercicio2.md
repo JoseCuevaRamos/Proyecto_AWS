@@ -69,4 +69,10 @@ Al final se ejecuta el arhivo.py y se crea la base de datos
 
 ![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/3e60a471-325b-4608-9232-4067bb6706e3)
 
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/22564fce-a6e9-446c-a419-67ed502bbb28)
+
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/2c92b0b0-fcd4-428e-9870-bd1cd9aaa7d4)
+
+
 
