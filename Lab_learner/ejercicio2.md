@@ -65,3 +65,8 @@ AttributeDefinitions=[
         }
 
 ```
+Al final se ejecuta el arhivo.py y se crea la base de datos
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/3e60a471-325b-4608-9232-4067bb6706e3)
+
+
