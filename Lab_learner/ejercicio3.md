@@ -82,6 +82,6 @@ except Exception as e:
 ![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/7bb50d29-1cb4-4b50-9d1c-c56105881e41)
 
 ![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/30c81dd1-a208-4fcc-9b8e-5c27e595a213)
-<p>Y como podemos ver tabien se creo un nuevo atributo "Estado"</p>
+<p>Y como podemos ver tambien se creo un nuevo atributo "Estado"</p>
 
 
