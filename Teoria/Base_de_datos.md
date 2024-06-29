@@ -43,6 +43,13 @@ SQL es un lenguaje de consulta utilizado para recuperar, acceder y editar datos 
   
 * Operaciones ACID:
 El acrónimo ACID significa Atomicidad, Consistencia, Aislamiento y Durabilidad.
+Donde:
+- **Atomicidad:** Confirmar que una acción se ejectue en su totalidad o no lo haga en absoluto, si falla de por medio, se revierten los cambios.
+- **Consistencia:** Nos aseguramos que pasemos de un estado válido a otro estado válido, asegurándonos de que se cumplan las reglas de consistencia establecidas.
+- **Aislamiento:** Nos aseguramos de que las transacciones se ejecuten como si fueran secuenciales, ignorando los cambios realizados por otra transacción hasta que esta última se haya completado.
+- **Durabilidad:** Una vez una transacción fue verificada, los cambios que realizó se mantienen incluso cuando falle un sistema.
+  
+Estas propiedades aseguran que las operaciones se realicen de manera fiable, esenciales para mantener la integridad de los datos.
 
 
 ## Sobre las Bases de Datos No Relacionales (NoSQL)
