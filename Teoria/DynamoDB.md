@@ -15,14 +15,14 @@
 
 </ul>
 
-## Venatajas
+## Ventajas
 <ul>
 <li> <h3> Rendimiento serverless con escalabilidad ilimitada</h3></li>
 
 <ul>
 <li>Tecnologia serverless y escalabilidad desde 0</li>
 <li>Transacciones ACID</li>
-<li>Replicacion activa con tabals globales</li>
+<li>Replicacion activa con tablas globales</li>
 <li>DynamoDB Stream como parte de una aquitectura basada en eventos</li>
 <li>Indices secundarios</li>
 </ul>
