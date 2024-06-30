@@ -40,7 +40,7 @@ response = dynamodb.create_table(
                 'KeyType': 'RANGE' 
             }
         ],
-)
+
 ```
 
 <p>
@@ -63,6 +63,7 @@ AttributeDefinitions=[
             'ReadCapacityUnits': 5,
             'WriteCapacityUnits': 5
         }
+)       
 
 ```
 Al final se ejecuta el arhivo.py y se crea la base de datos
