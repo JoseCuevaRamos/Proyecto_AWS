@@ -1,5 +1,5 @@
 <p align="left""><img src="https://semanadelcannabis.cayetano.edu.pe/assets/img/logo-upch.png" width="150">
-<h1 align="center">Ejercicio 5: Streams y tablas globales</h1>
+<h1 align="center">Ejercicio 6: Streams y tablas globales</h1>
 
 <h3>Streams</h3>
 <ul>
@@ -40,7 +40,8 @@ stream_description = response['StreamDescription']
 ```
 
 ### Shards:
-Cada Shard proporciona una capacidad de procesamiento para operaciones de lectura y escritura de streams
+
+Son particiones de datos que contienen un conjunto de registros de cambios de la tabla DynamoDB
 
 ### Shard Iterator:
 Es un puntero que indica la posicón donde se deben leer los registros 
