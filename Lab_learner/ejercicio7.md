@@ -47,6 +47,12 @@ try:
 except Exception as e:
     print(f"Error: {e}")
 ```
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/4edb92eb-fa0e-490a-b864-2dff08b3e320)
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/400023cd-1478-453f-b725-1480985931b3)
+
+
 <p>
 En posteriormente tenemos un codigo para restaurar la tabla desde una copia de seguridad
 </p>
