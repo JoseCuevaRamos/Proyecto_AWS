@@ -9,40 +9,39 @@ basándose en el tamaño de los ítems y la tasa de acceso.</li>
 <h2>Respuesta</h2>
 
 <p>
-En AWS DynamoDB, la capacidad de lectura y escritura de una tabla se mide en unidades de capacidad, conocidas como Read Capacity Units(RCU) y Write Capacity Unit(WCU).estas unidades determinan cuantas operaciones de lectura y escritura se pueden realizar por segundo en la tabla y son cruciales para dimensionar y optimizar el rendimiento y el costo de la base de datos 
+En AWS DynamoDB, la capacidad de lectura y escritura de una tabla se mide en unidades de capacidad, conocidas como Read Capacity Units(RCU) y Write Capacity Unit(WCU). Estas unidades determinan cuantas operaciones de lectura y escritura se pueden realizar por segundo en la tabla y son cruciales para dimensionar y optimizar el rendimiento y el costo de la base de datos. 
 </p>
 <p>
 RCU representa una lectura consistente fuerte  y lectura eventual consistente.
 </p>
 <p>Lectura consistente fuerte</p>
 <ul>
-<li>Garantiza que leeras la ultima version del item</li>
-<li>Una lectura consistente fuerte de hasta 4KB consume 1RCU  y si el tamaño es mayor es necesario redondear al siguiente multiplo de 4KB</li>
+<li>Garantiza que leerás la última versión del ítem</li>
+<li>Una lectura consistente fuerte de hasta 4KB consume 1RCU  y si el tamaño es mayor es necesario redondear al siguiente múltiplo de 4KB</li>
 </ul>
 <p>
 Lectura eventual consistente
 </p>
 
 <ul>
-<li>No garantiza que siempre leeras la ultima version de un Item pero ofrece mayor capacidad de lectura
+<li>No garantiza que siempre leerás la última version de un Item pero ofrece mayor capacidad de lectura
 </li>
-<li>Una lectura consistente fuerte de hasta 4KB consume 0.5RCU  y si el tamaño es mayor es necesario redondear al siguiente multiplo de 4KB
+<li>Una lectura consistente fuerte de hasta 4KB consume 0.5RCU  y si el tamaño es mayor es necesario redondear al siguiente múltiplo de 4KB
 </li>
 </ul>
 <p>
-WCU representa una escritura por segundo para un item hasta 1KB de tamaño
+WCU representa una escritura por segundo para un ítem hasta 1KB de tamaño
 </p>
 </p>
 <ul>
 <li>Escritura hasta 1KB consume 1 WCU</li>
-<li>Si el tamaño de item es mayor de 1KB consume 1RCU  y si el tamaño es mayor es necesario redondear al siguiente multiplo de 1
-KB</li>
+<li>Si el tamaño de ítem es mayor de 1KB consume 1RCU  y si el tamaño es mayor es necesario redondear al siguiente múltiplo de 1 KB</li>
 </ul>
 <h2>
 SCRIPT
 </h2>
 <p>
-En esta primera parte creamos dos funciones con las que vamos a calcular el RCU y el WCU en la parte de RCU utilizamos el tamaño promedio de los item en KB , el numero de escrituras por segundo y la consistencias entre eventual y fuerte .Por otra parte en el WCU utilizamos el mismo tamaño promedio y el numero de escrituras por segundo
+En esta primera parte creamos dos funciones con las que vamos a calcular el RCU y el WCU en la parte de RCU utilizamos el tamaño promedio de los item en KB , el numero de escrituras por segundo y la consistencias entre eventual y fuerte. Por otra parte en el WCU utilizamos el mismo tamaño promedio y el numero de escrituras por segundo
 </p>
 
 ```
