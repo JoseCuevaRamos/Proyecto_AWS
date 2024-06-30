@@ -3,21 +3,21 @@
 </p>
 
 <p>
-Las bases de datos en la nube de AWS contan de una gran cantidad de bases de datos que son ajustables a cualquier empresa. Las bases de datos de aws permiten todas las tareas de administracioin de base de datos, como el aprovicionamineto de servidores , las reviciones, la conficonfguracion y las copias de seguridad. De esta manera, es posible concentrarse ewn el desarrollo de las apliciones mientras AWS supervisa continuamente las bases de datos y automatiza el escalado.
+Las bases de datos en la nube de AWS constan de una gran cantidad de bases de datos que son ajustables a cualquier empresa. Las bases de datos de AWS permiten todas las tareas de administración de base de datos, como el aprovisionamiento de servidores, las revisiones, la configuración y las copias de seguridad. De esta manera, es posible concentrarse en el desarrollo de las apliciones mientras AWS supervisa continuamente las bases de datos y automatiza el escalado.
 </p>
 <h2>Bases de datos SQL</h2>
 <p align="center">
 <img src="https://static-00.iconduck.com/assets.00/aws-rds-icon-1817x2048-npv8h8zj.png"  width="100">
 <h3 align="center">Amazon RDS</h3>
 </p>
-<p>Servicion administrado que facilita, el funcionamiento y escalado de las bases de dato s relacionales de la nube.RDS gestiona tareas administrativas como el aprovicionamieto de hardware, el manteniemto de la base de dato y las copias de seguridad automaticas </p>
+<p>Servicio administrado que facilita el funcionamiento y escalado de las bases de datos relacionales de la nube. RDS gestiona tareas administrativas como el aprovisionamieto de hardware, el mantenimiento de la base de datos y las copias de seguridad automáticas. </p>
 
 <hr>
 <p align="center">
 <img src="https://lumigo.io/wp-content/uploads/2020/07/Amazon-Aurora@4x.png"  width="100">
 <h3 align="center">Amazon Aurora</h3>
 </p>
-<p>Es una base de datos relacional creada para la nube.Como servicio completamente administrado , automatiza las tareas que demandan mas tiempo , como el aprovicionamiento, las reviciones, copias de seguridad , la recuperacion, la deteccion de errorres y la reparacion.
+<p>Es una base de datos relacional creada para la nube. Como servicio completamente administrado, automatiza las tareas que demandan más tiempo, como el aprovisionamiento, las revisiones, copias de seguridad, la recuperación, la detección de errores y la reparación.
 
 </p>
 
@@ -27,7 +27,7 @@ Las bases de datos en la nube de AWS contan de una gran cantidad de bases de dat
 <h3 align="center">Amazon Redshift</h3>
 </p>
 <p>
-Es un servicio de alamcenamineto de datos a escala de petabytes completamente administrado por la nube.Esta optimizado para la ejecucion rapida de consultas en grandes conjuntos de datos y es ideal para data warehousing y el analiss de datos
+Es un servicio de almacenamiento de datos a escala de petabytes, completamente administrado por la nube. Está optimizado para la ejecución rápida de consultas en grandes conjuntos de datos y es ideal para data warehousing y el análiss de datos.
 
 </p>
 
@@ -40,7 +40,7 @@ Es un servicio de alamcenamineto de datos a escala de petabytes completamente ad
 <h3 align="center">Amazon DynamoDB</h3>
 </p>
 <p>
-Es un servicio de base de datos NOSQL totalmente adminsitrado y escalable diseñado para aplicaciones que requieren latencias extremadamente bajas y una escalabilidad automatica. Es ideal para casos de uso que incluyen aplicacionesweb , juego , IoT y aplicaciones moviles
+Es un servicio de base de datos NoSQL totalmente administrado y escalable diseñado para aplicaciones que requieren latencias extremadamente bajas y una escalabilidad automática. Es ideal para casos de uso que incluyen aplicaciones web, juegos, IoT y aplicaciones móviles.
 </p>
 
 <p align="center">
@@ -48,13 +48,13 @@ Es un servicio de base de datos NOSQL totalmente adminsitrado y escalable diseñ
 <h3 align="center">Amazon DocumentDB</h3>
 </p>
 <p>
-Es un servicio de base de datos compatible con MongoDB que ofrece esclabilidad , rendimiento y disponibilidad  gestionados por AWS. Es ideal para aplicaciones que requieren una base de datos de docuemntos felxifle y escalable 
+Es un servicio de base de datos compatible con MongoDB que ofrece escalabilidad, rendimiento y disponibilidad gestionados por AWS. Es ideal para aplicaciones que requieren una base de datos de docuemntos flexible y escalable. 
 </p>
 
 <p align="center">
 <img src="https://d2908q01vomqb2.cloudfront.net/887309d048beef83ad3eabf2a79a64a389ab1c9f/2021/08/10/AWS_ElastiCache_Icon-1.png"  width="200">
-<h3 align="center">Amazon ElasticCahe(Redis)</h3>
+<h3 align="center">Amazon ElastiCache(Redis)</h3>
 </p>
 <p>
-Es una base de datos NosQL en memoria completamente administrada , escalable y segura. Es una opcion habitual para las aplicaciones moviles, los videojuegos, el comencio electronico y otras aplicaciones en las que los datos a los se accede con frecuencia se deben almacenar en la memoria
+Es una base de datos NoSQL en memoria completamente administrada, escalable y segura. Es una opción habitual para las aplicaciones móviles, los videojuegos, el comencio electrónico y otras aplicaciones en las que los datos a los se accede con frecuencia se deben almacenar en la memoria.
 </p>
