@@ -27,7 +27,8 @@ En la siguiente parte creamos la tabla de DynamoDB en la parte de KeySchema crea
 </p>
 
 ```
-response = dynamodb.create_table(
+try:
+    response = dynamodb.create_table(
         TableName=table_name,
         KeySchema=[
             {   # Clave de partición
@@ -40,7 +41,6 @@ response = dynamodb.create_table(
                 'KeyType': 'RANGE' 
             }
         ],
-
 ```
 
 <p>
@@ -49,7 +49,9 @@ En el apartado de AttributeDefinitions le asignamos el tipo de atributos a la Pa
 
 
 ```
-AttributeDefinitions=[
+ # Tipo de atributo: 'S' para string, 'N' para número, 'B' para binario
+         
+        AttributeDefinitions=[
             {
                 'AttributeName': partition_key,
                 'AttributeType': 'S' 
@@ -63,7 +65,12 @@ AttributeDefinitions=[
             'ReadCapacityUnits': 5,
             'WriteCapacityUnits': 5
         }
-)       
+    )
+
+    print("Exito:", response)
+except Exception as e:
+    print("Error al crear:", e)
+      
 
 ```
 Al final se ejecuta el arhivo.py y se crea la base de datos
