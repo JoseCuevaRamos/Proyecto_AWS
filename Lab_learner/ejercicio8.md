@@ -7,7 +7,9 @@
 </ul>
 <h2>Respuesta</h2>
 
+CRUD es acrónimo de Create, Read, Update y Delete, indicando la creación, lectura, actualización y borrado de elementos de una tabla de DynamoDB mediante las diferentes funciones que ofrece el cliente dynamodb con el SDK boto3:
 
+* Crear 
 
 vemos como se crean los elementos incluso cuando no siguen la estructura del primer elemento de la tabla, función característica de las bases de datos no relacionales
 ![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/26f76363-8d3c-4625-8327-af56e8faf2f5)
