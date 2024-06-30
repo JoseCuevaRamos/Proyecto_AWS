@@ -95,3 +95,10 @@ Quiero hacer enfasis en esta parte en la que se especifica que atributos de la t
 }
 ```
 
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/49f031d5-02d0-413d-8c4e-e96ef840f9ad)
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/3ff824a4-77e7-4efa-b296-1e6167361803)
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/fc5ad81d-ef10-49e6-8e44-033cd1b6bc77)
+
