@@ -14,14 +14,14 @@ Teoria
 Las copias de seguridad (backups) y la restauración (restoration) son fundamentales para la administración de bases de datos debido a varias razones:
 </p>
 <ul>
-<li>Los datos se pueden perder debido a errorres humanos, fallos de hardware, ataques maliciosos,etc.Las copias de seguridad aseguran que puedas recuperar los datos en caso de perdida</li>
+<li>Los datos se pueden perder debido a errores humanos, fallos de hardware, ataques maliciosos,etc. Las copias de seguridad aseguran que puedas recuperar los datos en caso de pérdida</li>
 <li>En caso de desastres o fallos en el centro de datos las copias de la base de datos te permiten restaurar la base de datos a un estado anterior</li>
-<li>Son utiles cuando necesitas migrar datos a una nueva region o cuenta de aws</li>
+<li>Son útiles cuando necesitas migrar datos a una nueva región o cuenta de AWS</li>
 </ul>
 <h2>SCRIPT</h2>
 
 <p>
-En el siguiente codigo vamos a crear un backup para la tabla creada anteriormente, esta sera ubicada en la misma region y se añadira a la tabla con el metodo 'create_backup' donde necesita la el nombre de la tabla y el nombre de backup que lo creamos usando la fecha y hora actual para hacerlo unico
+En el siguiente código vamos a crear un backup para la tabla creada anteriormente, esta será ubicada en la misma región y se añadirá a la tabla con el método 'create_backup' donde necesita el nombre de la tabla y el nombre de backup que lo creamos usando la fecha y hora actual para hacerlo único.
 </p>
 
 ```
@@ -54,7 +54,7 @@ except Exception as e:
 
 
 <p>
-En posteriormente tenemos un codigo para restaurar la tabla desde una copia de seguridad
+Posteriormente tenemos un codigo para restaurar la tabla desde una copia de seguridad
 </p>
 
 ```
@@ -79,7 +79,7 @@ except Exception as e:
     print(f"Error: {e}")
 ```
 <p>
-En esta parte final creamos un script para usarlo en conjunto con AWS Lambda la cual no ayudara a automatizar el proceso de creacion de copias de seguridad. Subimos el codigo a lambda y configuramos el EventBridge que nos permitara crear una regla para que el codigo se ejecute cuando deseemos por ejemplo una vez al di.
+En esta parte final creamos un script para usarlo en conjunto con AWS Lambda la cual no ayudará a automatizar el proceso de creación de copias de seguridad. Subimos el codigo a lambda y configuramos el EventBridge que nos permitará crear una regla para que el código se ejecute cuando deseemos por ejemplo una vez al día.
 </p>
 
 ```
