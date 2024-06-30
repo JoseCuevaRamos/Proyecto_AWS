@@ -34,7 +34,7 @@ Es un servicio de almacenamiento de datos a escala de petabytes, completamente a
 
 
 
-<h2>Bases de datos NOSQL</h2>
+<h2>Bases de datos NoSQL</h2>
 <p align="center">
 <img src="https://www.martechforum.com/wp-content/uploads/2015/08/AmazonDynamoDB.png"  width="150">
 <h3 align="center">Amazon DynamoDB</h3>
