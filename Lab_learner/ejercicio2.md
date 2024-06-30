@@ -40,7 +40,7 @@ response = dynamodb.create_table(
                 'KeyType': 'RANGE' 
             }
         ],
-
+)
 ```
 
 <p>
