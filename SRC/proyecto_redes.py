@@ -46,10 +46,6 @@ def creartabla(Nombre, region,partitionkey,sortkey):
             print("Error",e)
 
 
- 
-
-
-
 def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
     dynamodb = boto3.client('dynamodb', region_name=region_name)
     
@@ -96,9 +92,6 @@ def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
         print("Error al crear el GSI:", e)   
 
 
-
-
-
 def calculate_rcu(item_size_kb, read_rate_per_second, consistency='eventual'):
     # Calcula las Unidades de Capacidad de Lectura (RCU) necesarias
     if consistency == 'fuerte':
@@ -112,11 +105,10 @@ def calculate_rcu(item_size_kb, read_rate_per_second, consistency='eventual'):
     return total_rcu
 
 
-
 #calcular y actualizar el rcu y wcu 
 def calculate_wcu(item_size_kb, write_rate_per_second):
     # Calcula las Unidades de Capacidad de Escritura (WCU) necesarias
-    wcu_per_write = 1 if item_size_kb <= 1 else (item_size_kb // 1) + 1
+    wcu_per_write = 1 if item_size_kb <= 1 else (item_size_kb // 1)
     total_wcu = wcu_per_write * write_rate_per_second
     return total_wcu
 
@@ -146,18 +138,11 @@ def actualizar_rcu_y_wcu(table_name, item_size_kb, read_rate_per_second, write_r
         print("Error al actualizar la tabla:", e)
 
 
-
-
-
-
-
-
-
-
-def habilitar_y_crear_streams(nombre_tabla,region):
+def habilitar_y_crear_streams(nombre_tabla, region):
     try:
         dynamodb = boto3.client("dynamodb", region_name=region)
 
+        # Habilitar Streams en la tabla
         response = dynamodb.update_table(
             TableName=nombre_tabla,
             StreamSpecification={
@@ -168,18 +153,25 @@ def habilitar_y_crear_streams(nombre_tabla,region):
         print(f"Streams habilitados en '{nombre_tabla}'")
         print("Detalles de la tabla:", response)
 
-        dynamodbstreams = boto3.client('dynamodbstreams', region_name=region)
-
+        # Describir la tabla para obtener el StreamArn
         response = dynamodb.describe_table(TableName=nombre_tabla)
         stream_arn = response['Table']['LatestStreamArn']
         print(f"Stream ARN: {stream_arn}")
 
+        # Obtener descripción del Stream
+        dynamodbstreams = boto3.client('dynamodbstreams', region_name=region)
         response = dynamodbstreams.describe_stream(StreamArn=stream_arn)
         stream_description = response['StreamDescription']
         print("Descripción del Stream:", stream_description)
 
-        shards = stream_description['Shards']
+        # Obtener fragmentos del Stream
+        shards = stream_description.get('Shards', [])
+        if not shards:
+            print("No hay fragmentos disponibles en el Stream.")
+            return
+
         shard_id = shards[0]['ShardId']
+        print(f"Shard ID: {shard_id}")
 
         shard_iterator = dynamodbstreams.get_shard_iterator(
             StreamArn=stream_arn,
@@ -187,23 +179,23 @@ def habilitar_y_crear_streams(nombre_tabla,region):
             ShardIteratorType='TRIM_HORIZON'
         )['ShardIterator']
 
+        # Obtener registros del Stream
         while True:
             response = dynamodbstreams.get_records(ShardIterator=shard_iterator)
-            records = response['Records']
+            records = response.get('Records', [])
             if records:
                 print("Registros:")
                 for record in records:
                     print(record)
-            shard_iterator = response['NextShardIterator']
+            shard_iterator = response.get('NextShardIterator', None)
+            if not shard_iterator:
+                break
             sleep(30)
     except ClientError as e:
         print(f"Error al procesar Streams: {e}")
     except Exception as e:
         print(f"Ocurrió un error inesperado: {e}")
-        
-
-
-        
+          
 
 def crear_tabla_global(table_name,region_primaria,region_replica):
      try:
@@ -229,7 +221,7 @@ def crear_tabla_global(table_name,region_primaria,region_replica):
                 },
                 {
                     'AttributeName': 'Fecha',
-                    'Attribute Type': 'S'
+                    'AttributeType': 'S'
                 }
             ],
             'ProvisionedThroughput': {
@@ -263,18 +255,14 @@ def crear_tabla_global(table_name,region_primaria,region_replica):
           
 
 def gestionar_elemento_dynamodb(operacion,table_name,region):
-    dynamodb = boto3.client('dynamodb', region_name=region)
-    if operacion == 'CREATE':
-        item = {
-            "Id": {"S": "Estoesotraprueba"},
-            "Fecha": {"S": "2024-01-01"},
-            "Estado": {"S": "Activo"},
-            "Nombre": {"S": "Ejemplo"},
-            "Edad": {"N": "25"},
-            "Correo": {"S": "ejemplo@example.com"}
+    dynamodb=boto3.client('dynamodb', region_name=region)
+    if operacion=='CREATE':
+        item={
+            "Id":{"S":"Estoesotraprueba"},
+            "Datte":{"S":"2020-1-2"}
         }
         try:
-            response = dynamodb.put_item(
+            response=dynamodb.put_item(
                 TableName=table_name,
                 Item=item
             )
@@ -286,16 +274,16 @@ def gestionar_elemento_dynamodb(operacion,table_name,region):
     elif operacion=="READ":
         key={
             "Id":{"S":"Estoesotraprueba"},
-            "Fecha":{"S":"2024-01-01"}
+            "Datte":{"S":"2020-1-2"}
         }
         try:
-            response = dynamodb.get_item(
+            response=dynamodb.get_item(
                 TableName=table_name,
                 Key=key
             )
 
             if 'Item' in response:
-                item = response['Item']
+                item=response['Item']
                 print("Elemento encontrado:", item)
             else:
                 print("Elemento no encontrado.")
@@ -305,20 +293,20 @@ def gestionar_elemento_dynamodb(operacion,table_name,region):
             print("Ocurrió un error inesperado:", e)
 
     elif operacion=="UPDATE":
-        key = {
-            "Id": {"S": "Estoesotraprueba"},
-            "Fecha": {"S": "2024-01-01"}
+        key={
+            "Id":{"S":"Estoesotraprueba"},
+            "Datte":{"S":"2020-1-2"}
         }
 
-        update_expression = "SET Nombre = :n, Edad = :e, Correo = :c"
-        expression_attribute_values = {
-            ":n": {"S": "Nuevo Ejemplo"},
-            ":e": {"N": "30"},
-            ":c": {"S": "nuevo_ejemplo@example.com"}
+        update_expression="SET Nombre = :n, Edad = :e, Correo = :c"
+        expression_attribute_values={
+            ":n":{"S":"Nuevo Ejemplo"},
+            ":e":{"N":"30"},
+            ":c":{"S":"nuevo_ejemplo@example.com"}
         }
 
         try:
-            response = dynamodb.update_item(
+            response=dynamodb.update_item(
                 TableName=table_name,
                 Key=key,
                 UpdateExpression=update_expression,
@@ -330,14 +318,14 @@ def gestionar_elemento_dynamodb(operacion,table_name,region):
         except Exception as e:
             print("Ocurrió un error inesperado:", e)
 
-    elif operacion == "DELETE":
-        key = {
-            "Id": {"S": "Estoesotraprueba"},
-            "Fecha": {"S": "2024-01-01"}
+    elif operacion=="DELETE":
+        key={
+            "Id":{"S":"Estoesotraprueba"},
+            "Datte":{"S":"2020-1-2"}
         }
 
         try:
-            response = dynamodb.delete_item(
+            response=dynamodb.delete_item(
                 TableName=table_name,
                 Key=key
             )
@@ -351,19 +339,18 @@ def gestionar_elemento_dynamodb(operacion,table_name,region):
         print("Operación no válida. Debe ser CREATE, READ, UPDATE o DELETE.")
 
 
-def crear_backup(region_backup, region_dynamodb, table_name):
+def crear_backup(region_dynamodb, table_name):
     # Crear clientes de DynamoDB y Backup
     dynamodb = boto3.client('dynamodb', region_name=region_dynamodb)
-    backup = boto3.client('backup', region_name=region_backup)
-    
+
     # Crear un nombre único para la copia de seguridad basado en la fecha y hora actual
     backup_name = f"backup_{table_name}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
     
     try:
         # Crear la copia de seguridad
         response = dynamodb.create_backup(
-            TableName=table_name,
-            BackupName=backup_name
+        TableName=table_name,
+        BackupName=backup_name
         )
         print(f"exito: {response['BackupDetails']['BackupArn']}")
     except Exception as e:
@@ -388,41 +375,62 @@ def restaurar_tabla_desde_backup(region, backup_arn, new_table_name):
 
 print("Buenos dias y bienvenido a la interfaz de usuario que le permitirá interactuar con las bases\nde datos no relacionales de DynamoDb, un servicio de AWS")
 
-
-
-
-
-
 while True:
-    answer=input("Por favor, ingrese la accion que desea realizar\n\t1: Crear tablas\n\t2: Crear índices\n\t3: Calcular Unidades de lectura y escritura\n\t4: Habilitar y crear streams\n\t5: Crear tablas globales\n\t6: Realizar copias de seguridad \n\t7: Crear, Leer, Actualizar o Eliminar elementos de una tabla")
+    answer=int(input("Por favor, ingrese la accion que desea realizar\n\t1: Crear tablas\n\t2: Crear índices\n\t3: Calcular Unidades de lectura y escritura\n\t4: Habilitar y crear streams\n\t5: Crear tablas globales\n\t6: Realizar copias de seguridad \n\t7: Crear, Leer, Actualizar o Eliminar elementos de una tabla\n\t"))
     seguir=False
     if answer==1:
-        creartabla()
-
+        
+        region_name=input("Ingrese la region (recomendamos us-west-2): ")
+        nombre_tabla=input("Ingrese nombre de la tabla: " )
+        pk=input("Ingrese la PartitionKey de su tabla: ")
+        sk=input("Ingrese el Sorkey de su tabla: ")
+        creartabla(nombre_tabla,region_name,pk,sk)
 
     if answer==2:
-        crear_GSI()
-        pass
 
+        region_name=input("Ingrese la region de la tabla: ")
+        GSIname=input("Ingrese el nombre del Indice Global Secundario para la tabla(GSI): ")
+        nombre_tabla=input("Ingrese nombre de la tabla: " )
+        pk=input("Ingrese la PartitionKey para su Indice secundario: ")
+        sk=input("Ingrese el Sorkey para su Indice secundario: ")
+        crear_GSI(GSIname,pk,sk,region_name,nombre_tabla)
     if answer==3:
-        actualizar_rcu_y_wcu()
-        pass
 
+        table_name=input("Ingrese el nombre de la tabla: ")
+        region_name=input("Region de la tabla: ")
+        item_size_kb=int(input("Ingresa el tamaño promedio de los archivos de la tabla: "))
+        read_rate_per_second=int(input("Ingresa las lecturas promedio por segundo: "))
+        write_rate_per_second=int(input("Ingresa las escrituras promedio por segundo: "))
+        consistency=input("Ingresar el tiopo de lectura (fuerte o eventual): ")
+        
+        actualizar_rcu_y_wcu(table_name, item_size_kb, read_rate_per_second, write_rate_per_second, consistency, region_name)
+        
+
+
+#table_name, item_size_kb, read_rate_per_second, write_rate_per_second, consistency='eventual', region_name='us-west-2'
     if answer==4:
-        habilitar_y_crear_streams()
-        pass
+        nombre_tabla=input("Ingrese el nombre de la tabla en la que desea crear streams: ")
+        region=input("Ingrese una región ( recomendamos us-west-2 ): ")
+        habilitar_y_crear_streams(nombre_tabla,region)
+
     
     if answer==5:
-        crear_tabla_global()
-        pass
+        table_name=input("Ingrese el nombre de la tabla que desea crear: ")
+        region_primaria=input("Ingrese el nombre de la región primaria en que desea crear la tabla: ")
+        region_replica=input("Ingrese el nombre de la región donde desea replicar la tabla creada: ")
+        crear_tabla_global(table_name,region_primaria,region_replica)
     
     if answer==6:
-        crear_backup()
-        pass
-    
+        table_name=input("Ingrese el nombre de la tabla que desea copiar: ")
+        region_dynamodb=input("Ingrese la región donde se encuentra la tabla de la que desea crear la copia de respaldo ( recomendamos us-west-2 ): ")
+        crear_backup(region_dynamodb, table_name)
+
     if answer==7:
-        gestionar_elemento_dynamodb()
-        pass
+        operacion=input("Introduzca la operación que desea realizar, puede ser: \n\tCREATE\n\tREAD\n\tUPDATE\n\tDELETE\n\t")
+        table_name=input("Nombre de la tabla cuyos elementos desea gestionar: ")
+        region=input("Región donde se encuentra la tabla ( recomendamos us-west-2 ): ")
+        gestionar_elemento_dynamodb(operacion,table_name,region)
+
 
 
     r=input("Desea continuar?: (Ingrese Sí/No)")
@@ -432,6 +440,3 @@ while True:
         seguir=False
         print("Muchas gracias por usar nuestro servicio")
         break
-        
-        
-     
