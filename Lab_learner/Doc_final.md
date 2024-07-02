@@ -186,14 +186,220 @@ def actualizar_rcu_y_wcu(table_name, item_size_kb, read_rate_per_second, write_r
         print("Error al actualizar la tabla:", e)
 
 ```
+<p>En La siguiente funcion se usa para poder habilitar y crear streams en la tabla escogida , esta funcion toma como argumentos el nombre de la tabla a la que se deben crear el streams  </p>
 
+```
+def habilitar_y_crear_streams(nombre_tabla, region):
+    try:
+        dynamodb=boto3.client("dynamodb", region_name=region)
 
+        # Habilitamos los streams en la tabla
+        response=dynamodb.update_table(
+            TableName=nombre_tabla,
+            StreamSpecification={
+                "StreamEnabled": True,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            }
+        )
+        print(f"Streams habilitados en '{nombre_tabla}'")
+        print("Detalles de la tabla:", response)
 
+        # Describir la tabla para obtener el StreamArn
+        response=dynamodb.describe_table(TableName=nombre_tabla)
+        stream_arn=response['Table']['LatestStreamArn']
+        print(f"Stream ARN: {stream_arn}")
 
+        # Obtener descripción del Stream
+        dynamodbstreams=boto3.client('dynamodbstreams', region_name=region)
+        response=dynamodbstreams.describe_stream(StreamArn=stream_arn)
+        stream_description=response['StreamDescription']
+        print("Descripción del Stream:", stream_description)
 
+        # Obtener fragmentos del Stream
+        shards=stream_description.get('Shards', [])
+        if not shards:
+            print("No hay fragmentos disponibles en el Stream.")
+            return
 
+        shard_id=shards[0]['ShardId']
+        print(f"Shard ID: {shard_id}")
 
+        shard_iterator=dynamodbstreams.get_shard_iterator(
+            StreamArn=stream_arn,
+            ShardId=shard_id,
+            ShardIteratorType='TRIM_HORIZON'
+        )['ShardIterator']
 
+        # Obtener registros del Stream
+        while True:
+            response=dynamodbstreams.get_records(ShardIterator=shard_iterator)
+            records=response.get('Records', [])
+            if records:
+                print("Registros:")
+                for record in records:
+                    print(record)
+            shard_iterator=response.get('NextShardIterator', None)
+            if not shard_iterator:
+                break
+            sleep(30)
+    except ClientError as e:
+        print(f"Error al procesar Streams: {e}")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e}")
+
+```
+
+<p>
+Ingresar informacion de tablas globales
+</p>
+
+```
+def crear_tabla_global(table_name, region_primaria, region_replica):
+    try:
+        # Crear clientes para las regiones primaria y réplica
+        dynamodb_primary = boto3.client('dynamodb', region_name=region_primaria)
+        dynamodb_replica = boto3.client('dynamodb', region_name=region_replica)
+        
+        # Definición de la tabla con streams habilitados
+        table_definition = {
+            'TableName': table_name,
+            'KeySchema': [
+                {'AttributeName': 'Id', 'KeyType': 'HASH'},
+                {'AttributeName': 'Fecha', 'KeyType': 'RANGE'}
+            ],
+            'AttributeDefinitions': [
+                {'AttributeName': 'Id', 'AttributeType': 'S'},
+                {'AttributeName': 'Fecha', 'AttributeType': 'S'}
+            ],
+            'ProvisionedThroughput': {
+                'ReadCapacityUnits': 5,
+                'WriteCapacityUnits': 5
+            },
+            'StreamSpecification': {
+                "StreamEnabled": True,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            }
+        }
+
+        # Crear la tabla en la región primaria
+        response_primary = dynamodb_primary.create_table(**table_definition)
+        print(f"Tabla creada en {region_primaria}: {response_primary}")
+
+        # Esperar a que la tabla esté disponible en la región primaria
+        dynamodb_primary.get_waiter('table_exists').wait(TableName=table_name)
+
+        # Crear la tabla en la región réplica
+        response_replica = dynamodb_replica.create_table(**table_definition)
+        print(f"Tabla creada en {region_replica}: {response_replica}")
+
+        # Esperar a que la tabla esté disponible en la región réplica
+        dynamodb_replica.get_waiter('table_exists').wait(TableName=table_name)
+
+        # Crear la tabla global
+        response_global = dynamodb_primary.create_global_table(
+            GlobalTableName=table_name,
+            ReplicationGroup=[
+                {'RegionName': region_primaria},
+                {'RegionName': region_replica}
+            ]
+        )
+        print(f"Tabla global '{table_name}' creada exitosamente: {response_global}")
+        
+    except ClientError as e:
+        print(f"Error al crear la tabla global: {e}")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e}")
+```
+
+<p>
+Ingresar Lo de gestionar elemnto
+</p>
+
+```
+def gestionar_elemento_dynamodb(operacion,table_name,region):
+    dynamodb=boto3.client('dynamodb', region_name=region)
+    if operacion=='CREATE':
+        item={
+            "Id":{"S":"Estoesotraprueba"},
+            "Date":{"S":"2020-1-2"}
+        }
+        try:
+            response=dynamodb.put_item(
+                TableName=table_name,
+                Item=item
+            )
+            print("Elemento creado exitosamente:", response)
+        except ClientError as e:
+            print("Error al crear el elemento:", e)
+        except Exception as e:
+            print("Ocurrió un error inesperado:", e)
+    elif operacion=="READ":
+        key={
+            "Id":{"S":"Estoesotraprueba"},
+            "Date":{"S":"2020-1-2"}
+        }
+        try:
+            response=dynamodb.get_item(
+                TableName=table_name,
+                Key=key
+            )
+
+            if 'Item' in response:
+                item=response['Item']
+                print("Elemento encontrado:", item)
+            else:
+                print("Elemento no encontrado.")
+        except ClientError as e:
+            print("Error al leer el elemento:", e)
+        except Exception as e:
+            print("Ocurrió un error inesperado:", e)
+
+    elif operacion=="UPDATE":
+        key={
+            "Id":{"S":"Estoesotraprueba"},
+            "Date":{"S":"2020-1-2"}
+        }
+
+        update_expression="SET Nombre = :n, Edad = :e, Correo = :c"
+        expression_attribute_values={
+            ":n":{"S":"Nuevo Ejemplo"},
+            ":e":{"N":"30"},
+            ":c":{"S":"nuevo_ejemplo@example.com"}
+        }
+
+        try:
+            response=dynamodb.update_item(
+                TableName=table_name,
+                Key=key,
+                UpdateExpression=update_expression,
+                ExpressionAttributeValues=expression_attribute_values
+            )
+            print("Elemento actualizado exitosamente:", response)
+        except ClientError as e:
+            print("Error al actualizar el elemento:", e)
+        except Exception as e:
+            print("Ocurrió un error inesperado:", e)
+
+    elif operacion=="DELETE":
+        key={
+            "Id":{"S":"Estoesotraprueba"},
+            "Date":{"S":"2020-1-2"}
+        }
+
+        try:
+            response=dynamodb.delete_item(
+                TableName=table_name,
+                Key=key
+            )
+            print("Elemento eliminado exitosamente.")
+        except ClientError as e:
+            print("Error al eliminar el elemento:", e)
+        except Exception as e:
+            print("Ocurrió un error inesperado:", e)
+
+    else:
+        print("Operación no válida. Debe ser CREATE, READ, UPDATE o DELETE.")
+```
 
 <p>La ultima funcion es la funcion backup la cual usara el codigo creado en el ejercicio numero 7. En esta funcion usaremos el nombre de la tabla como argumento para crearle una copia de seguridad </p>
 
