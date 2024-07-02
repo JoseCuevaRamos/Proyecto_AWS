@@ -16,6 +16,7 @@ def crear():  #CREATE
         "Nombre":{"S":"Ejemplo"}, #con atributos extra que no seguirán la estructura del elemento anteriormente creado
         "Edad":{"N":"25"},
         "Correo":{"S":"ejemplo@example.com"}
+        
         }
     
     try:
@@ -62,7 +63,7 @@ def actualizar():  #UPDATE
     update_expression="SET Nombre = :n, Edad = :e, Correo = :c"
     expression_attribute_values={# damos valores a los atributos que actualizaremos
         ":n":{"S":"Nuevo Ejemplo"},
-        ":e":{"N":"30"},
+        ":e":{"N":"31"},
         ":c":{"S":"nuevo_ejemplo@example.com"}
         }
     
@@ -98,7 +99,9 @@ def eliminar():  #DELETE
         print("Ocurrió un error inesperado:",e)
 
 # Ejecutar las operaciones
-crear()
-leer()
+#crear()
+#leer()
 actualizar()
 eliminar()
+
+
