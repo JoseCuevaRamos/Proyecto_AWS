@@ -59,7 +59,11 @@ def lambda_handler(event, context):
 
 
 ```
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/c0878c10-48b4-4475-a611-a926437f5010)
 
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/cce19f1c-519c-40ce-859e-740429d74dd5)
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/20bd62e2-aa3f-480f-8d66-01261e440ce2)
 
 
 
@@ -116,3 +120,7 @@ def lambda_handler(event, context):
 
 
 ```
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/7bcdc889-4b43-41e1-b396-524e0fe165bf)
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/ad3e425e-766b-430f-955a-38a6b4dccef9)
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/5af7dc15-9359-43b0-b7dc-7043153b7da2)
