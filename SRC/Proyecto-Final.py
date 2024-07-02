@@ -197,8 +197,7 @@ def habilitar_y_crear_streams(nombre_tabla, region):
         print(f"Ocurrió un error inesperado: {e}")
           
 
-import boto3
-from botocore.exceptions import ClientError
+
 
 def crear_tabla_global(table_name, region_primaria, region_replica):
     try:
