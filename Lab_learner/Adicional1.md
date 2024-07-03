@@ -74,3 +74,6 @@ Donde creamos un item en la tabla para generar el evento y activar la función L
 
 - Diseña y ejecuta pruebas para validar que la función Lambda procesa correctamente los eventos del stream y toma acciones específicas basadas en los datos del evento.
 
+Podemos revisar la administración de eventos en la pesataña de monitoreo de la función Lambda gracias a Cloudwatch y sus métricas, mostrando la activación 
+
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/f5009d95-8b56-4f50-8633-4a00b8e5245f)
