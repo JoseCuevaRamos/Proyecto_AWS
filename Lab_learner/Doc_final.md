@@ -12,7 +12,13 @@ proyecto.</li>
 <li>Realiza una presentación del proyecto, destacando los desafíos enfrentados y las soluciones
 implementadas</li>
 </ul>
+<h2> Tutorial de instalación de boto3 </h2>
+Para el desarrollo de este proyecto, incluyeendo los ejercicios, hacemos uso del Software Developer Kit Boto3, que nos permite interactuar con AWS a partir de código usando las funciones y creación de clientes incluídas en la API de Python que provee Boto3. Además, haremos uso del entorno Cloud9, que aprovecha la sesión iniciada del usuario de AWS para obtener las credenciales automáticamente, proveyendo estas mismas al SDK para su correcto funcionamiento.
 
+- Pasos para la instalación de boto3 en el entorno Cloud9
+  - Iniciamos el IDLE de Cloud9 con la configuración estándard, salvo la configuración de red que será establecida en **Secure Shell (SSH)**
+  - En la terminal, ejecutamos el comando *cat ~/.aws/credentials* para verificar que contemos con nuestro access key, secret access key, token y región
+  - 
 <h2>Desarrollo</h2>
 <p>
     Primero, saludamos al usuario y le pedimos que ingrese la región en la que desea trabajar (en este caso, recomendamos us-west-2 por cuestiones de permisos en la cuenta de AWS con la que trabajamos).
