@@ -16,7 +16,7 @@ implementadas</li>
 <h2>Desarrollo</h2>
 
 <p>
-En la primera parte planificamos quen funciones vamos a usar en la interfza y de esta menera sabremos que funciones usadas previamente utilizaremos en la interfaz de usuario
+En la primera parte planificamos quen funciones vamos a usar en la interfaz y de esta menera sabremos que funciones usadas previamente utilizaremos en la interfaz de usuario
 </p>
 <p>Funciones escogidas para la interfaz</p>
 <ul>
