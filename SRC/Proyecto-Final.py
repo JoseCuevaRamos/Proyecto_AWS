@@ -4,6 +4,18 @@ from time import sleep
 import datetime
 
 def creartabla(Nombre, region,partitionkey,sortkey):
+    """
+    Crear una tabla de DynamoDB con el nombre y las keys especificas
+    
+    Argumentos:
+    Nombres(str): El nombre de la nueva tabla.
+    Region(str): Laregion de AWS donde se creara la tabla
+    partitionkey (str): La clave de partición de la tabla.
+    sortkey (str): La clave de ordenación de la tabla.
+
+    """
+
+    # Crear un cliente de DynamoDB
     dynamodb=boto3.client('dynamodb',region_name=region)
 
     try:
@@ -12,11 +24,11 @@ def creartabla(Nombre, region,partitionkey,sortkey):
                 KeySchema=[
                     {
                         'AttributeName':partitionkey,
-                        'KeyType':'HASH'
+                        'KeyType':'HASH' # Clave de partición
                     },
                     {
                         'AttributeName':sortkey,
-                        'KeyType':'RANGE'
+                        'KeyType':'RANGE' # Clave de ordenacion
                     }
                       
                 ],
@@ -24,12 +36,12 @@ def creartabla(Nombre, region,partitionkey,sortkey):
                 AttributeDefinitions=[
                      {
                           'AttributeName':partitionkey,
-                          'AttributeType':'S'
+                          'AttributeType':'S' # Tipo de dato: String
                      },
                      
                      {
                           'AttributeName':sortkey,
-                          'AttributeType':'S'
+                          'AttributeType':'S' # Tipo de dato: String
                      }
 
 
@@ -47,6 +59,16 @@ def creartabla(Nombre, region,partitionkey,sortkey):
 
 
 def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
+    """
+    Crea un Índice Secundario Global (GSI) en una tabla de DynamoDB existente.
+
+    Argumentos:
+        GSI_name (str): El nombre del nuevo GSI.
+        partitionkey (str): La clave de partición para el GSI.
+        sortkey (str): La clave de ordenación para el GSI.
+        region_name (str): La región de AWS donde se encuentra la tabla.
+        tablename (str): El nombre de la tabla donde se creará el GSI.
+    """
     dynamodb = boto3.client('dynamodb', region_name=region_name)
     
     try:
@@ -93,6 +115,17 @@ def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
 
 
 def calculate_rcu(item_size_kb, read_rate_per_second, consistency='eventual'):
+    """
+    Calcula las Unidades de Capacidad de Lectura (RCU) necesarias para DynamoDB.
+
+    Args:
+        item_size_kb (int): El tamaño del ítem en kilobytes.
+        read_rate_per_second (int): La tasa de lectura por segundo.
+        consistency (str): Tipo de consistencia ('fuerte' o 'eventual'). Por defecto es 'eventual'.
+
+    Returns:
+        float: El número total de RCU necesarias.
+    """
     # Calcula las Unidades de Capacidad de Lectura (RCU) necesarias
     if consistency == 'fuerte':
         # Lectura consistente fuerte
@@ -107,6 +140,16 @@ def calculate_rcu(item_size_kb, read_rate_per_second, consistency='eventual'):
 
 #calcular y actualizar el rcu y wcu 
 def calculate_wcu(item_size_kb, write_rate_per_second):
+    """
+    Calcula las Unidades de Capacidad de Escritura (WCU) necesarias para DynamoDB.
+
+    Args:
+        item_size_kb (int): El tamaño del ítem en kilobytes.
+        write_rate_per_second (int): La tasa de escritura por segundo.
+
+    Returns:
+        float: El número total de WCU necesarias.
+    """
     # Calcula las Unidades de Capacidad de Escritura (WCU) necesarias
     wcu_per_write = 1 if item_size_kb <= 1 else (item_size_kb // 1)
     total_wcu = wcu_per_write * write_rate_per_second
@@ -114,6 +157,17 @@ def calculate_wcu(item_size_kb, write_rate_per_second):
 
 
 def actualizar_rcu_y_wcu(table_name, item_size_kb, read_rate_per_second, write_rate_per_second, consistency='eventual', region_name='us-west-2'):
+    """
+    Calcula y actualiza las Unidades de Capacidad de Lectura (RCU) y Escritura (WCU) para una tabla de DynamoDB.
+
+    Args:
+        table_name (str): El nombre de la tabla.
+        item_size_kb (int): El tamaño del ítem en kilobytes.
+        read_rate_per_second (int): La tasa de lectura por segundo.
+        write_rate_per_second (int): La tasa de escritura por segundo.
+        consistency (str): Tipo de consistencia ('fuerte' o 'eventual'). Por defecto es 'eventual'.
+        region_name (str): La región de AWS donde se encuentra la tabla. Por defecto es 'us-west-2'.
+    """
     # Calcular RCU y WCU
     rcu = calculate_rcu(item_size_kb, read_rate_per_second, consistency)
     wcu = calculate_wcu(item_size_kb, write_rate_per_second)
@@ -139,6 +193,13 @@ def actualizar_rcu_y_wcu(table_name, item_size_kb, read_rate_per_second, write_r
 
 
 def habilitar_y_crear_streams(nombre_tabla, region):
+    """
+    Habilita los streams en una tabla de DynamoDB y obtiene registros de estos streams.
+
+    Args:
+        nombre_tabla (str): El nombre de la tabla en DynamoDB.
+        region (str): La región de AWS donde se encuentra la tabla.
+    """
     try:
         dynamodb=boto3.client("dynamodb", region_name=region)
 
@@ -200,6 +261,14 @@ def habilitar_y_crear_streams(nombre_tabla, region):
 
 
 def crear_tabla_global(table_name, region_primaria, region_replica):
+    """
+    Crea una tabla global en DynamoDB con réplica en otra región.
+
+    Args:
+        table_name (str): El nombre de la nueva tabla.
+        region_primaria (str): La región primaria de AWS.
+        region_replica (str): La región de réplica de AWS.
+    """
     try:
         # Crear clientes para las regiones primaria y réplica
         dynamodb_primary = boto3.client('dynamodb', region_name=region_primaria)
@@ -258,6 +327,14 @@ def crear_tabla_global(table_name, region_primaria, region_replica):
           
 
 def gestionar_elemento_dynamodb(operacion,table_name,region):
+    """
+    Crea una tabla global en DynamoDB con réplica en otra región.
+
+    Args:
+        table_name (str): El nombre de la nueva tabla.
+        region_primaria (str): La región primaria de AWS.
+        region_replica (str): La región de réplica de AWS.
+    """
     dynamodb=boto3.client('dynamodb', region_name=region)
     if operacion=='CREATE':
         item={
@@ -343,6 +420,13 @@ def gestionar_elemento_dynamodb(operacion,table_name,region):
 
 
 def crear_backup(region_dynamodb, table_name):
+    """
+    Crea una copia de seguridad de una tabla de DynamoDB.
+
+    Args:
+        region_dynamodb (str): La región de AWS donde se encuentra la tabla.
+        table_name (str): El nombre de la tabla en DynamoDB.
+    """
     # Crear clientes de DynamoDB y Backup
     dynamodb=boto3.client('dynamodb', region_name=region_dynamodb)
 
@@ -360,6 +444,14 @@ def crear_backup(region_dynamodb, table_name):
         print(f"Error al crear el backup: {e}")
 
 def restaurar_tabla_desde_backup(region, backup_arn, new_table_name):
+    """
+    Restaura una tabla de DynamoDB desde una copia de seguridad.
+
+    Args:
+        region (str): La región de AWS donde se restaurará la tabla.
+        backup_arn (str): El ARN de la copia de seguridad.
+        new_table_name (str): El nombre de la nueva tabla restaurada.
+    """
     # Crear cliente de DynamoDB
     dynamodb=boto3.client('dynamodb', region_name=region)
 
