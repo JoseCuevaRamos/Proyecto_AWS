@@ -7,7 +7,7 @@ def creartabla(Nombre, region,partitionkey,sortkey):
     """
     Crear una tabla de DynamoDB con el nombre y las keys especificas
     
-    Argumentos:
+    Args:
     Nombres(str): El nombre de la nueva tabla.
     Region(str): Laregion de AWS donde se creara la tabla
     partitionkey (str): La clave de partición de la tabla.
@@ -62,7 +62,7 @@ def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
     """
     Crea un Índice Secundario Global (GSI) en una tabla de DynamoDB existente.
 
-    Argumentos:
+    Args:
         GSI_name (str): El nombre del nuevo GSI.
         partitionkey (str): La clave de partición para el GSI.
         sortkey (str): La clave de ordenación para el GSI.
@@ -196,7 +196,7 @@ def habilitar_y_crear_streams(nombre_tabla, region):
     """
     Habilita los streams en una tabla de DynamoDB y obtiene registros de estos streams.
 
-    Args:
+    Arg:
         nombre_tabla (str): El nombre de la tabla en DynamoDB.
         region (str): La región de AWS donde se encuentra la tabla.
     """
