@@ -61,7 +61,12 @@ except ClientError as e:
 
 
 ```
+## Antes de ejecutar
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/23f16f29-cd5c-428f-a354-c5a6951322e8)
 
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/c3435335-d2d9-4906-b4d9-485aa2387392)
 
+## Despues de ejecutar
 
+![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297438/a4a64255-1a74-4ceb-8beb-a2c751e32c23)
 
