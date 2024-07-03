@@ -18,7 +18,22 @@ Para el desarrollo de este proyecto, incluyeendo los ejercicios, hacemos uso del
 - Pasos para la instalación de boto3 en el entorno Cloud9
   - Iniciamos el IDLE de Cloud9 con la configuración estándard, salvo la configuración de red que será establecida en **Secure Shell (SSH)**
   - En la terminal, ejecutamos el comando *cat ~/.aws/credentials* para verificar que contemos con nuestro access key, secret access key, token y región
-  - 
+  - Una vez verificamos que se obtuvieron las credenciales correctamente, instalamos Boto 3 con el siguiente comando
+    ```
+    pip install boto3
+    ```
+    y verificamos la instalación con el comando
+    ```
+    pip show boto3
+    ```
+    obteniendo el siguiente resultado
+    
+    ![image](https://github.com/JoseCuevaRamos/Proyecto_AWS/assets/150297452/350299e8-b58d-4b75-be7b-a95c9daba9fe)
+
+    
+
+
+ 
 <h2>Desarrollo</h2>
 <p>
     Primero, saludamos al usuario y le pedimos que ingrese la región en la que desea trabajar (en este caso, recomendamos us-west-2 por cuestiones de permisos en la cuenta de AWS con la que trabajamos).
