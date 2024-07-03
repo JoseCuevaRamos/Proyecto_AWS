@@ -14,24 +14,26 @@ implementadas</li>
 </ul>
 
 <h2>Desarrollo</h2>
-
 <p>
-En la primera parte planificamos quen funciones vamos a usar en la interfaz y de esta menera sabremos que funciones usadas previamente utilizaremos en la interfaz de usuario
+    Primero, saludamos al usuario y le pedimos que ingrese la región en la que desea trabajar (en este caso, recomendamos us-west-2 por cuestiones de permisos en la cuenta de AWS con la que trabajamos).
+</p>
+<p>
+Luego, planificamos qué funciones vamos a usar en la interfaz y de esta menera sabremos qué funciones usadas previamente utilizaremos en la interfaz de usuario
 </p>
 <p>Funciones escogidas para la interfaz</p>
 <ul>
-<li>Creacion de Tablas</li>
-<li>Crear Indices Secundarios</li>
-<li>Calcular Unides de lectura y escritura</li>
-<li>Habilitar y crear Streams </li>
-<li>Crear tablas globales</li>
-<li>Crear copia de seguridad</li>
-<li>Crear, Leer, Actualizar o Eliminar elementos de una tabla</li>
+<li>1.- Creación de Tablas</li>
+<li>2.- Crear Índices Secundarios</li>
+<li>3.- Calcular Unides de lectura y escritura</li>
+<li>4.- Habilitar y crear Streams </li>
+<li>5.- Crear tablas globales</li>
+<li>6.- Crear copia de seguridad</li>
+<li>7.- Crear, Leer, Actualizar o Eliminar elementos de una tabla</li>
 </ul>
 
-<p>En la segunda parte diseñamos las funciones que seran llamadas en la interfaz teniendo en cuenta los codigos generados en los ejercicios anteriores , ajustamos los codigo para que sean llamados como funcion</p>
+<p>En la segunda parte diseñamos las funciones que seran llamadas en la interfaz teniendo en cuenta los códigos generados en los ejercicios anteriores, ajustamos los código para que sean llamados como funciones y reciban como input las diferentes acciones que se deben realizar o se especifiquen regiones secundarias para tablas globales</p>
 
-<p>Iniciamos importando las librerias que vasmo a usar en nuestor codigo , estas librerias son las que sabemos que hemos utilizado en nuestros codigos anteriores</p>
+<p>Iniciamos importando las librerias que vamos a usar en nuestro código, estas librerías son las que sabemos que hemos utilizado en nuestros códigos anteriores</p>
 
 ```
 import boto3
@@ -40,7 +42,7 @@ from time import sleep
 import datetime
 ```
 
-<p>La primera fucnion que creamos es la funcion para crear tabla que fue adaptada de el ejercicio numero 2 en la cual tiene como argumento de entrada el nombre de la tabla nueva , la partitionkey y la sortkey de la nueva tabla </p>
+<p>La primera función que creamos es la función para crear tabla que fue adaptada del ejercicio número 2 en la cual tiene como argumento de entrada el nombre de la tabla nueva, la partitionkey y la sortkey de la nueva tabla </p>
 
 ```
 def creartabla(Nombre, region,partitionkey,sortkey):
@@ -86,7 +88,7 @@ def creartabla(Nombre, region,partitionkey,sortkey):
             print("Error",e)
 ```
 
-<p>Para la segunda funcion adaptamos la funcion creada en el ejercicio numeor 3 para crear indice secundarios globales, esta funcion tiene como argumento El nombre del indice que se va aa crear , nueva partitionkey y sortkey para el nuevo indice y la tabla a la que se va a crear el indice secundario </p>
+<p>Para la segunda funcion adaptamos la funcion creada en el ejercicio numero 3 para crear índices secundarios globales, esta funcion tiene como argumento el nombre del índice que se va aa crear, nueva partitionkey y sortkey para el nuevo índice y la tabla a la que se va a crear el índice secundario </p>
 
 ```
 def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
@@ -137,7 +139,7 @@ def crear_GSI(GSI_name, partitionkey, sortkey, region_name, tablename):
 
 ```
 
-<p>Para la tercera funcion en la que calcularemos los RCU y WCU utilizando las funciones del ejercicio 5 en la cual creamos dos funciones una para clacular el WCU y otra para calcular RCU para finalmente actualizar los parametros en la tabla. Esta funcion va a tener como argumento el nombre de la tabla a la que se le van a hacer los cambios , el perso promedio de los itemas en KB , el read rate per second , el write rate per second , la consistencia de lectura </p>
+<p>Para la tercera función en la que calcularemos los RCU y WCU utilizando las funciones del ejercicio 5 en el cual creamos dos funciones, una para clacular el WCU y otra para calcular RCU. Para, finalmente, actualizar los parámetros en la tabla. Esta función va a tener como argumento el nombre de la tabla a la que se le van a hacer los cambios, el peso promedio de los itemas en KB, el read rate per second, el write rate per second y la consistencia de lectura </p>
 
 ```
 def calculate_rcu(item_size_kb, read_rate_per_second, consistency='eventual'):
@@ -186,7 +188,8 @@ def actualizar_rcu_y_wcu(table_name, item_size_kb, read_rate_per_second, write_r
         print("Error al actualizar la tabla:", e)
 
 ```
-<p>En La siguiente funcion se usa para poder habilitar y crear streams en la tabla escogida , esta funcion toma como argumentos el nombre de la tabla a la que se deben crear el streams  </p>
+<p>En La siguiente función se usa para poder habilitar y crear streams en la tabla escogida, esta función toma como argumentos el nombre de la tabla a la que se deben crear el streams, primero se encarga de activar los streams en la tabla (que están desactivados por defecto) para luego leer los registros del stream, de manera que registre los cambios en la tabla
+</p>
 
 ```
 def habilitar_y_crear_streams(nombre_tabla, region):
@@ -250,7 +253,7 @@ def habilitar_y_crear_streams(nombre_tabla, region):
 ```
 
 <p>
-Ingresar informacion de tablas globales
+En la función de crear tablas globales, recibimos como atributo la región previamente establecida, añadiendo el nombre de la tabla y la región en que queremos replicar dicha tabla, habilitamos también los streams y creamos la tabla de manera regular, esperando a que su creación se complete, para crearla finalmente en la región réplica (us-east-1)
 </p>
 
 ```
